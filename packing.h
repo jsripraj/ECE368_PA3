@@ -18,6 +18,10 @@ Input loadFromFile(FILE *fp);
 
 tnode *buildTree(int *pos, tnode **array);
 
+void printTreeLeavesPostorder(tnode *root);
+
+void freeTree(tnode *root);
+
 void getDimensions();
 
 void getCoordinates();

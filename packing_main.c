@@ -7,7 +7,12 @@ int main(int argc, char **argv) {
 	if (fp == NULL) { return EXIT_FAILURE; }
 	
 	Input Data = loadFromFile(fp);
-	Data.size += 0;
 	fclose(fp);
+	
+	tnode *tree = buildTree(&(Data.size), Data.array);
+	printTreeLeavesPostorder(tree);
+
+	free(Data.array);
+	freeTree(tree);
 	return 0;
 }
