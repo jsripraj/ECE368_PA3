@@ -56,16 +56,6 @@ tnode *buildTree(int *pos, tnode **array) {
 	return array[cur];
 }
 
-void printTreeLeavesPostorder(tnode *root) {
-	if (root -> index > 0) {
-		printf("%d %le %le %le %le\n", root -> index, root -> width, root -> height, root -> x, root -> y);
-		return;
-	}
-	printTreeLeavesPostorder(root -> left);
-	printTreeLeavesPostorder(root -> right);
-	return;
-}
-
 void getDimensions(tnode *root) {
 	// Return when leaf node is reached
 	if (root -> label == 0) { return; }
@@ -93,31 +83,60 @@ void getDimensions(tnode *root) {
 }
 
 void getCoordinates(tnode *root, double xCur, double yCur) {
+	// Return if leaf node is reached
 	if (root -> label == 0) { return; }
+	// Get coordinates in left subtree
 	getCoordinates(root -> left, xCur, yCur);
 	if (root -> label == 'V') {
+		// If left child is a leaf node
 		if (root -> left -> label == 0) {
 			root -> left -> x = xCur;
 			root -> left -> y = yCur - root -> height;
 		}
 		xCur += root -> left -> width;
+		// If right child is a leaf node
 		if (root -> right -> label == 0) {
 			root -> right -> x = xCur;
 			root -> right -> y = yCur - root -> height;
 		}
 	}
 	if (root -> label == 'H') {
+		// If left child is a leaf node
 		if (root -> left -> label == 0) {
 			root -> left -> x = xCur;
 			root -> left -> y = yCur - root -> left -> height;
 		}
 		yCur -= root -> left -> height;
+		// If right child is a leaf node
 		if (root -> right -> label == 0) {
 			root -> right -> x = xCur;
 			root -> right -> y = yCur - root -> right -> height;
 		}
 	}
 	getCoordinates(root -> right, xCur, yCur);
+	return;
+}
+
+void writeTreeLeavesPostorder(tnode *root, FILE *fp) {
+	// If leaf node, write information to file
+	if (root -> index > 0) {
+		fprintf(fp, "%d %le %le %le %le\n", root -> index, root -> width, root -> height, root -> x, root -> y);
+		return;
+	}
+	writeTreeLeavesPostorder(root -> left, fp);
+	writeTreeLeavesPostorder(root -> right, fp);
+	return;
+}
+
+void getLargestNode(tnode *root, tnode **largest) {
+	if (root -> index > 0) {
+		if (root -> index > (*largest) -> index) {
+			*largest = root;
+		}
+		return;
+	}
+	getLargestNode(root -> left, largest);
+	getLargestNode(root -> right, largest);
 	return;
 }
 

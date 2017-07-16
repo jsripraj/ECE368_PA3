@@ -18,8 +18,17 @@ int main(int argc, char **argv) {
 	getDimensions(tree);
 	// Calculate coordinates
 	getCoordinates(tree, 0, tree -> height);
-	printTreeLeavesPostorder(tree);
-
+	// Open the output file
+	fp = fopen(argv[2], "w");
+	if (fp == NULL) { return EXIT_FAILURE; }
+	// Print leaf node information to file
+	writeTreeLeavesPostorder(tree, fp);
+	// Print screen output
+	printf("\nWidth: %le\nHeight: %le\n", tree -> width, tree -> height);
+	tnode *largest = tree;
+	getLargestNode(tree, &largest);
+	printf("largest label, index = %c, %d\n", largest -> label, largest -> index);
+	printf("X-coordinate: %le\nY-Coordinate: %le\n\n", largest -> x, largest -> y);
 	// Free binary tree
 	freeTree(tree);
 	return 0;

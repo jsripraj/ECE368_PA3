@@ -18,12 +18,12 @@ Input loadFromFile(FILE *fp);
 
 tnode *buildTree(int *pos, tnode **array);
 
-void printTreeLeavesPostorder(tnode *root);
-
 void freeTree(tnode *root);
 
 void getDimensions(tnode *root);
 
 void getCoordinates(tnode *root, double xCur, double yCur);
 
-void saveToFile();
+void writeTreeLeavesPostorder(tnode *root, FILE *fp);
+
+void getLargestNode(tnode *root, tnode **largest);
