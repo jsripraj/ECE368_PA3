@@ -22,8 +22,8 @@ void printTreeLeavesPostorder(tnode *root);
 
 void freeTree(tnode *root);
 
-void getDimensions();
+void getDimensions(tnode *root);
 
-void getCoordinates();
+void getCoordinates(tnode *root);
 
 void saveToFile();

@@ -58,11 +58,37 @@ tnode *buildTree(int *pos, tnode **array) {
 
 void printTreeLeavesPostorder(tnode *root) {
 	if (root -> index > 0) {
-		printf("%d, ", root -> index);
+		printf("%d %le %le\n", root -> index, root -> width, root -> height);
 		return;
 	}
 	printTreeLeavesPostorder(root -> left);
 	printTreeLeavesPostorder(root -> right);
+	return;
+}
+
+void getDimensions(tnode *root) {
+	// Return when leaf node is reached
+	if (root -> label == 0) { return; }
+	getDimensions(root -> left);
+	getDimensions(root -> right);
+	if (root -> label == 'H') {
+		// Root's width is the larger of the two children's widths
+		root -> width = root -> right -> width;
+		if (root -> left -> width > root -> right -> width) {
+			root -> width = root -> left -> width;
+		}
+		// Root's heigh is the sum of the two children's heights
+		root -> height = root -> left -> height + root -> right -> height;
+	}
+	if (root -> label == 'V') {
+		// Root's height is the larger of the two children's heights
+		root -> height = root -> right -> height;
+		if (root -> left -> height > root -> right -> height) {
+			root -> height = root -> left -> height;
+		}
+		// Root's width is the sum of the two children's widths
+		root -> width = root -> left -> width + root -> right -> width;
+	}
 	return;
 }
 
