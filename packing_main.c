@@ -16,7 +16,8 @@ int main(int argc, char **argv) {
 	free(Data.array);
 	// Calculate dimensions
 	getDimensions(tree);
-	
+	// Calculate coordinates
+	getCoordinates(tree, 0, tree -> height);
 	printTreeLeavesPostorder(tree);
 
 	// Free binary tree

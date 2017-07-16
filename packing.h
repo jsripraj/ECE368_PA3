@@ -24,6 +24,6 @@ void freeTree(tnode *root);
 
 void getDimensions(tnode *root);
 
-void getCoordinates(tnode *root);
+void getCoordinates(tnode *root, double xCur, double yCur);
 
 void saveToFile();
