@@ -11,7 +11,7 @@ test: all
 	./proj3 Given_Files/r6_po.txt output
 
 mem: all
-	valgrind -v --tool=memcheck --leak-check=full --show-reachable=yes proj3 Given_Files/r6_po.txt output
+	valgrind -v --tool=memcheck --leak-check=full --show-reachable=yes proj3 Given_Files/r0_po.txt output
 
 clean:
 	/bin/rm -f *.o
